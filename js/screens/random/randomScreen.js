@@ -84,6 +84,16 @@ export function createRandomScreen() {
     }, 1000);
   }
 
+  function cancelCountdown() {
+    if (phase !== "countdown") return;
+    if (countdownTimer) clearInterval(countdownTimer);
+    countdownTimer = null;
+    phase = "collecting";
+    countdown.textContent = "";
+    hint.style.display = "";
+    hint.textContent = "Everyone place a finger on the screen…";
+  }
+
   function reveal() {
     phase = "revealed";
     countdown.textContent = "";
@@ -108,6 +118,8 @@ export function createRandomScreen() {
   }
 
   function onPointerDown(e) {
+    if (e.target.closest(".random-topbar")) return;
+
     if (phase === "revealed") {
       reset();
       return;
@@ -122,6 +134,7 @@ export function createRandomScreen() {
     positionNode(node, e.clientX, e.clientY);
     surface.append(node);
     pointers.set(e.pointerId, { node, colorIndex });
+    surface.setPointerCapture(e.pointerId);
     hint.style.display = "none";
     maybeStartCountdown();
   }
@@ -136,6 +149,10 @@ export function createRandomScreen() {
     const entry = pointers.get(e.pointerId);
     if (!entry) return;
 
+    if (surface.hasPointerCapture(e.pointerId)) {
+      surface.releasePointerCapture(e.pointerId);
+    }
+
     if (phase === "collecting") {
       entry.node.remove();
       pointers.delete(e.pointerId);
@@ -143,8 +160,19 @@ export function createRandomScreen() {
         hint.style.display = "";
       }
       maybeStartCountdown();
+      return;
     }
-    // During countdown/reveal, ignore lifts so the winner stays visible.
+
+    if (phase === "countdown") {
+      entry.node.remove();
+      pointers.delete(e.pointerId);
+      cancelCountdown();
+      if (pointers.size > 0) {
+        hint.style.display = "none";
+      }
+      maybeStartCountdown();
+    }
+    // During reveal, ignore lifts so the winner stays visible.
   }
 
   return {

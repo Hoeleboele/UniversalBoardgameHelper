@@ -14,6 +14,22 @@ body {
   overflow: hidden;
 }
 
+body.life-force-landscape {
+  overflow: hidden;
+}
+
+@media (orientation: portrait) {
+  body.life-force-landscape .app {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvh;
+    height: 100dvw;
+    transform-origin: top left;
+    transform: rotate(90deg) translateY(-100dvh);
+  }
+}
+
 .screen {
   flex: 1;
   display: flex;

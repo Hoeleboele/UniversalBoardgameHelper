@@ -68,12 +68,14 @@ export function createPlayerCard(player, state, { canRemove }) {
         }),
         removeBtn,
       ]),
-      totalEl,
-      el("div", { class: "life-controls" }, [
-        lifeButton("-5", () => state.adjust(player.id, -5)),
-        lifeButton("-1", () => state.adjust(player.id, -1)),
-        lifeButton("+1", () => state.adjust(player.id, 1)),
-        lifeButton("+5", () => state.adjust(player.id, 5)),
+      el("div", { class: "life-core" }, [
+        totalEl,
+        lifeButton("-1", () => state.adjust(player.id, -1), "life-btn-side life-btn-minus1"),
+        lifeButton("+1", () => state.adjust(player.id, 1), "life-btn-side life-btn-plus1"),
+      ]),
+      el("div", { class: "life-bottom-controls" }, [
+        lifeButton("-5", () => state.adjust(player.id, -5), "life-btn-bottom"),
+        lifeButton("+5", () => state.adjust(player.id, 5), "life-btn-bottom"),
       ]),
       colorPicker,
     ]
@@ -82,6 +84,10 @@ export function createPlayerCard(player, state, { canRemove }) {
   return card;
 }
 
-function lifeButton(label, onClick) {
-  return el("button", { class: "life-btn", text: label, on: { click: onClick } });
+function lifeButton(label, onClick, extraClass = "") {
+  return el("button", {
+    class: `life-btn ${extraClass}`.trim(),
+    text: label,
+    on: { click: onClick },
+  });
 }
