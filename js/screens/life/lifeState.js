@@ -5,6 +5,7 @@ const STORAGE_KEY = "life";
 export const START_LIFE = 20;
 export const MIN_PLAYERS = 2;
 export const MAX_PLAYERS = 4;
+export const DELTA_WINDOW_MS = 900;
 
 const DEFAULT_COLORS = ["red", "blue", "green", "purple"];
 
@@ -34,7 +35,15 @@ export class LifeState {
 
   _loadOrDefault() {
     const saved = load(STORAGE_KEY, null);
-    if (Array.isArray(saved) && saved.length >= MIN_PLAYERS) return saved;
+    if (Array.isArray(saved) && saved.length >= MIN_PLAYERS) {
+      return saved.map((p, i) => ({
+        id: Number(p.id) || i + 1,
+        life: Number(p.life) || START_LIFE,
+        colorId: p.colorId || DEFAULT_COLORS[i] || DEFAULT_COLOR_ID,
+        deltaTotal: Number(p.deltaTotal) || 0,
+        deltaAt: Number(p.deltaAt) || 0,
+      }));
+    }
     return this._makePlayers(MIN_PLAYERS);
   }
 
@@ -43,12 +52,21 @@ export class LifeState {
       id: i + 1,
       life: START_LIFE,
       colorId: DEFAULT_COLORS[i] || DEFAULT_COLOR_ID,
+      deltaTotal: 0,
+      deltaAt: 0,
     }));
   }
 
   adjust(id, delta) {
     const p = this.players.find((x) => x.id === id);
     if (!p) return;
+    const now = Date.now();
+    if (now - (p.deltaAt || 0) <= DELTA_WINDOW_MS) {
+      p.deltaTotal = (p.deltaTotal || 0) + delta;
+    } else {
+      p.deltaTotal = delta;
+    }
+    p.deltaAt = now;
     p.life += delta;
     this._emit();
   }
@@ -64,11 +82,17 @@ export class LifeState {
     const p = this.players.find((x) => x.id === id);
     if (!p) return;
     p.life = START_LIFE;
+    p.deltaTotal = 0;
+    p.deltaAt = 0;
     this._emit();
   }
 
   resetAll() {
-    this.players.forEach((p) => (p.life = START_LIFE));
+    this.players.forEach((p) => {
+      p.life = START_LIFE;
+      p.deltaTotal = 0;
+      p.deltaAt = 0;
+    });
     this._emit();
   }
 
@@ -78,7 +102,13 @@ export class LifeState {
     const usedColors = new Set(this.players.map((p) => p.colorId));
     const colorId =
       DEFAULT_COLORS.find((c) => !usedColors.has(c)) || DEFAULT_COLOR_ID;
-    this.players.push({ id: nextId, life: START_LIFE, colorId });
+    this.players.push({
+      id: nextId,
+      life: START_LIFE,
+      colorId,
+      deltaTotal: 0,
+      deltaAt: 0,
+    });
     this._emit();
   }
 

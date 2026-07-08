@@ -154,13 +154,66 @@
 
 .player-total {
   flex: 1;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+}
+
+.player-total-value {
   font-size: clamp(3rem, 18vw, 6rem);
   font-weight: 800;
   line-height: 1;
-  padding: 0;
+  color: inherit;
+  pointer-events: none;
+  user-select: none;
+}
+
+.player-total-delta {
+  position: absolute;
+  bottom: clamp(12px, 4.5vh, 24px);
+  left: 50%;
+  transform: translate(-50%, -6px);
+  font-size: clamp(1.3rem, 5.6vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 3;
+  pointer-events: none;
+  user-select: none;
+}
+
+.player-total-delta.plus {
+  color: var(--player-delta-plus, inherit);
+}
+
+.player-total-delta.minus {
+  color: var(--player-delta-minus, rgba(169, 30, 30, 0.95));
+}
+
+.player-total-delta.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.player-total-hit {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.player-total-hit-left {
+  left: 0;
+}
+
+.player-total-hit-right {
+  right: 0;
 }
 
 .life-core {
@@ -170,38 +223,8 @@
   display: flex;
 }
 
-.life-controls {
-  display: grid;
-  grid-template-columns: 0.8fr 1.2fr 1.2fr 0.8fr;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.life-btn {
-  background: rgba(255, 255, 255, 0.18);
-  color: inherit;
-  border-radius: 12px;
-  padding: 14px 0;
-  font-weight: 800;
-  font-size: 1.05rem;
-}
-
-.life-btn-large {
-  padding: 16px 0;
-  font-size: 1.25rem;
-}
-
-.life-btn-small {
-  padding: 12px 0;
-  font-size: 0.95rem;
-}
-
-.player-card[data-light="true"] .life-btn {
-  background: rgba(0, 0, 0, 0.12);
-}
-
-.life-btn:active {
-  transform: scale(0.96);
+.player-total-hit:active {
+  transform: scale(0.99);
 }
 
 /* Color picker popover */
