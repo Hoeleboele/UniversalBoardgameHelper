@@ -56,6 +56,52 @@
   grid-template-columns: 1fr 1fr;
 }
 
+.life {
+  position: relative;
+}
+
+.life-menu-fab {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  z-index: 3;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(17, 20, 24, 0.72);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(4px);
+}
+
+.life-menu-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.42);
+}
+
+.life-menu-backdrop.open {
+  display: flex;
+}
+
+.life-menu-panel {
+  width: min(280px, calc(100% - 32px));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(28, 33, 41, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
 .player-card {
   flex: 1;
   border-radius: var(--radius);
