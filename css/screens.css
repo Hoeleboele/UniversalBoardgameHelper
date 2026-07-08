@@ -160,7 +160,7 @@
   font-size: clamp(3rem, 18vw, 6rem);
   font-weight: 800;
   line-height: 1;
-  padding: 0 64px;
+  padding: 0;
 }
 
 .life-core {
@@ -170,9 +170,9 @@
   display: flex;
 }
 
-.life-bottom-controls {
+.life-controls {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.8fr 1.2fr 1.2fr 0.8fr;
   gap: 8px;
   margin-top: 8px;
 }
@@ -186,27 +186,14 @@
   font-size: 1.05rem;
 }
 
-.life-btn-side {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 56px;
-  border-radius: 0;
+.life-btn-large {
+  padding: 16px 0;
   font-size: 1.25rem;
 }
 
-.life-btn-minus1 {
-  left: 0;
-  border-radius: 12px 0 0 12px;
-}
-
-.life-btn-plus1 {
-  right: 0;
-  border-radius: 0 12px 12px 0;
-}
-
-.life-btn-bottom {
-  padding: 16px 0;
+.life-btn-small {
+  padding: 12px 0;
+  font-size: 0.95rem;
 }
 
 .player-card[data-light="true"] .life-btn {

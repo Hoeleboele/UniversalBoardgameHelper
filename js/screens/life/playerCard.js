@@ -70,12 +70,12 @@ export function createPlayerCard(player, state, { canRemove }) {
       ]),
       el("div", { class: "life-core" }, [
         totalEl,
-        lifeButton("-1", () => state.adjust(player.id, -1), "life-btn-side life-btn-minus1"),
-        lifeButton("+1", () => state.adjust(player.id, 1), "life-btn-side life-btn-plus1"),
       ]),
-      el("div", { class: "life-bottom-controls" }, [
-        lifeButton("-5", () => state.adjust(player.id, -5), "life-btn-bottom"),
-        lifeButton("+5", () => state.adjust(player.id, 5), "life-btn-bottom"),
+      el("div", { class: "life-controls" }, [
+        lifeButton("-5", () => state.adjust(player.id, -5), "life-btn-small"),
+        lifeButton("-1", () => state.adjust(player.id, -1), "life-btn-large"),
+        lifeButton("+1", () => state.adjust(player.id, 1), "life-btn-large"),
+        lifeButton("+5", () => state.adjust(player.id, 5), "life-btn-small"),
       ]),
       colorPicker,
     ]
