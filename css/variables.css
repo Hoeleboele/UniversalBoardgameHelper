@@ -1,0 +1,24 @@
+:root {
+  /* App theme */
+  --bg: #111418;
+  --surface: #1c2129;
+  --surface-2: #262d38;
+  --text: #f2f4f8;
+  --text-muted: #9aa4b2;
+  --accent: #4f9dff;
+  --danger: #ff5c5c;
+  --radius: 16px;
+  --gap: 12px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Player color palette */
+  --color-red: #e03131;
+  --color-blue: #1971c2;
+  --color-green: #2f9e44;
+  --color-purple: #7048e8;
+  --color-black: #16191d;
+  --color-white: #f1f3f5;
+  --color-yellow: #f3c000;
+  --color-orange: #f76707;
+}
