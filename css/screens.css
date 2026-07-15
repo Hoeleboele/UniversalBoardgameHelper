@@ -486,7 +486,7 @@
 
 .timer-neutral-bar {
   flex: 0 0 auto;
-  min-height: 44px;
+  min-height: 72px;
   border: 0;
   border-top: 2px solid rgba(255, 255, 255, 0.35);
   border-bottom: 2px solid rgba(255, 255, 255, 0.35);
@@ -504,7 +504,7 @@
 }
 
 .timer-neutral-bar.active {
-  min-height: 36px;
+  min-height: 64px;
   background: rgba(17, 20, 24, 0.88);
 }
 
