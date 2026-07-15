@@ -468,15 +468,33 @@
   transform: translate(-50%, -50%);
   width: 72px;
   height: 72px;
+  padding: 0;
   border-radius: 50%;
   z-index: 3;
-  font-size: 1.5rem;
+  font-size: 0;
   font-weight: 800;
-  color: #fff;
+  line-height: 0;
+  color: transparent;
   background: rgba(17, 20, 24, 0.78);
   border: 2px solid rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
   transition: left 0.18s ease, transform 0.18s ease, opacity 0.18s ease;
+}
+
+.timer-pause-fab::before {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 24px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    #ffffff 0 5px,
+    transparent 5px 13px,
+    #ffffff 13px 18px
+  );
 }
 
 .timer-pause-fab.left {

@@ -75,7 +75,6 @@ export function createTimerPlayScreen() {
   const pauseBtn = el("button", {
     class: "timer-pause-fab",
     type: "button",
-    text: "❚❚",
     "aria-label": "Pause timer",
     on: { click: () => pauseTimer() },
   });
@@ -110,6 +109,9 @@ export function createTimerPlayScreen() {
     neutralBtn.classList.toggle("active", state.neutralActive);
     neutralBtn.disabled = state.ended || state.neutralRemaining <= 0;
     pauseBtn.classList.toggle("left", state.neutralActive);
+
+    const hasActiveTimer = !state.paused && (state.neutralActive || state.activeTeam === "a" || state.activeTeam === "b");
+    pauseBtn.style.display = hasActiveTimer ? "grid" : "none";
 
     let statusText = "";
     if (state.ended) {
