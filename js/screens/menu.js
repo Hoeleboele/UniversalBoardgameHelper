@@ -2,7 +2,7 @@ import { el } from "../utils/dom.js";
 import { Router } from "../router.js";
 
 /**
- * Landing menu with two options: Random Player and Track Life.
+ * Landing menu with app tools for random player, life tracking and team timer.
  */
 export function createMenuScreen() {
   return {
@@ -25,6 +25,14 @@ export function createMenuScreen() {
               on: { click: () => Router.go("life") },
             },
             [el("span", { class: "emoji", text: "❤️" }), el("span", { text: "Track Life" })]
+          ),
+          el(
+            "button",
+            {
+              class: "menu-btn",
+              on: { click: () => Router.go("timer-settings") },
+            },
+            [el("span", { class: "emoji", text: "⏱️" }), el("span", { text: "Team Timer" })]
           ),
         ]),
       ]);

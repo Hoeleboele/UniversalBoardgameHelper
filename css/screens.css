@@ -322,3 +322,216 @@
   right: 0;
   z-index: 10;
 }
+
+/* ---------- Team timer settings ---------- */
+.timer-settings {
+  gap: 10px;
+}
+
+.timer-settings-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  padding: 0 14px 14px;
+  overflow: auto;
+}
+
+.timer-field {
+  display: grid;
+  gap: 8px;
+}
+
+.timer-label {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.timer-input {
+  width: 100%;
+  border: 1px solid var(--surface-2);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 12px;
+  min-height: 44px;
+  padding: 10px 12px;
+  font-size: 1rem;
+}
+
+.timer-swatch-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.timer-swatch-btn {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.14s ease, border-color 0.14s ease;
+}
+
+.timer-swatch-btn.selected {
+  border-color: #ffffff;
+  transform: scale(1.06);
+}
+
+.timer-swatch-btn:active {
+  transform: scale(0.95);
+}
+
+.timer-neutral-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.timer-neutral-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.timer-neutral-row .timer-input {
+  max-width: 120px;
+}
+
+/* ---------- Team timer play ---------- */
+.timer-play-screen {
+  background: var(--bg);
+}
+
+.timer-play-board {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.timer-team-half {
+  flex: 1;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 14px;
+  color: #fff;
+  transition: filter 0.18s ease, opacity 0.18s ease;
+}
+
+.timer-team-half[data-light="true"] {
+  color: #16191d;
+}
+
+.timer-team-half.active {
+  filter: brightness(1.15);
+}
+
+.timer-team-half.inactive {
+  filter: brightness(0.76) saturate(0.9);
+}
+
+.timer-team-half:active {
+  filter: brightness(1.07);
+}
+
+.timer-team-a .timer-team-name,
+.timer-team-a .timer-team-time {
+  transform: rotate(180deg);
+}
+
+.timer-team-name {
+  font-size: clamp(1rem, 3.2vw, 1.4rem);
+  font-weight: 700;
+  text-align: center;
+  opacity: 0.95;
+}
+
+.timer-team-time {
+  font-size: clamp(3.2rem, 15vw, 6rem);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.timer-pause-fab {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  z-index: 3;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(17, 20, 24, 0.78);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(4px);
+  transition: left 0.18s ease, transform 0.18s ease, opacity 0.18s ease;
+}
+
+.timer-pause-fab.left {
+  left: 24px;
+  transform: translate(0, -50%);
+}
+
+.timer-neutral-bar {
+  flex: 0 0 auto;
+  min-height: 44px;
+  border: 0;
+  border-top: 2px solid rgba(255, 255, 255, 0.35);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.35);
+  z-index: 2;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: rgba(17, 20, 24, 0.72);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.02em;
+  transition: min-height 0.18s ease, background-color 0.18s ease;
+}
+
+.timer-neutral-bar.active {
+  min-height: 36px;
+  background: rgba(17, 20, 24, 0.88);
+}
+
+.timer-neutral-bar:disabled {
+  opacity: 0.62;
+}
+
+.timer-pause-fab:disabled {
+  opacity: 0.5;
+}
+
+.timer-status {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(17, 20, 24, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.timer-status-mirror {
+  top: 20px;
+  bottom: auto;
+  transform: translateX(-50%) rotate(180deg);
+}
