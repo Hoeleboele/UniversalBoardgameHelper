@@ -2,10 +2,13 @@ import { load, save } from "../../services/storage.js";
 import { DEFAULT_COLOR_ID } from "../../constants/colors.js";
 
 const STORAGE_KEY = "life";
+const RESET_LIFE_STORAGE_KEY = "lifeResetLife";
 export const START_LIFE = 20;
 export const MIN_PLAYERS = 2;
 export const MAX_PLAYERS = 4;
 export const DELTA_WINDOW_MS = 900;
+export const RESET_LIFE_MIN = 0;
+export const RESET_LIFE_MAX = 100;
 
 const DEFAULT_COLORS = ["red", "blue", "green", "purple"];
 
@@ -16,6 +19,7 @@ const DEFAULT_COLORS = ["red", "blue", "green", "purple"];
 export class LifeState {
   constructor() {
     this.players = this._loadOrDefault();
+    this.resetLife = this._loadResetLife();
     this._listeners = new Set();
   }
 
@@ -31,6 +35,14 @@ export class LifeState {
 
   _persist() {
     save(STORAGE_KEY, this.players);
+    save(RESET_LIFE_STORAGE_KEY, this.resetLife);
+  }
+
+  _loadResetLife() {
+    const saved = Number(load(RESET_LIFE_STORAGE_KEY, START_LIFE));
+    if (!Number.isFinite(saved)) return START_LIFE;
+    const normalized = Math.round(saved);
+    return Math.min(RESET_LIFE_MAX, Math.max(RESET_LIFE_MIN, normalized));
   }
 
   _loadOrDefault() {
@@ -81,18 +93,41 @@ export class LifeState {
   resetPlayer(id) {
     const p = this.players.find((x) => x.id === id);
     if (!p) return;
-    p.life = START_LIFE;
+    p.life = this.resetLife;
     p.deltaTotal = 0;
     p.deltaAt = 0;
     this._emit();
   }
 
   resetAll() {
+    this.resetAllTo(this.resetLife);
+  }
+
+  resetAllTo(lifeValue) {
+    const parsedLife = Number(lifeValue);
+    if (!Number.isFinite(parsedLife)) return;
+    const normalizedLife = Math.min(
+      RESET_LIFE_MAX,
+      Math.max(RESET_LIFE_MIN, Math.round(parsedLife))
+    );
+
     this.players.forEach((p) => {
-      p.life = START_LIFE;
+      p.life = normalizedLife;
       p.deltaTotal = 0;
       p.deltaAt = 0;
     });
+    this._emit();
+  }
+
+  setResetLife(value) {
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) return;
+    const next = Math.min(
+      RESET_LIFE_MAX,
+      Math.max(RESET_LIFE_MIN, Math.round(parsed))
+    );
+    if (this.resetLife === next) return;
+    this.resetLife = next;
     this._emit();
   }
 

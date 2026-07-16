@@ -6,6 +6,8 @@ import {
   handleNeutralPress,
   handleTeamPress,
   pauseTimer,
+  resetNeutralTimerSession,
+  resetTimerSession,
   subscribeTimer,
 } from "./timerState.js";
 
@@ -85,6 +87,28 @@ export function createTimerPlayScreen() {
     on: { click: () => handleNeutralPress() },
   });
 
+  const neutralResetBtn = el("button", {
+    class: "timer-neutral-reset",
+    type: "button",
+    text: "Reset",
+    on: {
+      click: () => {
+        const resetBehavior = getTimerSnapshot().settings.resetBehavior;
+        if (resetBehavior === "neutral-only") {
+          resetNeutralTimerSession();
+          return;
+        }
+
+        resetTimerSession();
+      },
+    },
+  });
+
+  const neutralWrap = el("div", { class: "timer-neutral-wrap" }, [
+    neutralBtn,
+    neutralResetBtn,
+  ]);
+
   function render(state) {
     const colorA = getColor(state.settings.teamAColorId);
     const colorB = getColor(state.settings.teamBColorId);
@@ -104,7 +128,7 @@ export function createTimerPlayScreen() {
     teamAHalf.classList.toggle("inactive", !state.paused && state.activeTeam !== "a");
     teamBHalf.classList.toggle("inactive", !state.paused && state.activeTeam !== "b");
 
-    neutralBtn.style.display = state.settings.neutralEnabled ? "flex" : "none";
+    neutralWrap.style.display = state.settings.neutralEnabled ? "flex" : "none";
     neutralBtn.textContent = formatTime(state.neutralRemaining);
     neutralBtn.classList.toggle("active", state.neutralActive);
     neutralBtn.disabled = state.ended || state.neutralRemaining <= 0;
@@ -167,7 +191,7 @@ export function createTimerPlayScreen() {
         ]),
         el("div", { class: "timer-play-board" }, [
           teamAHalf,
-          neutralBtn,
+          neutralWrap,
           teamBHalf,
           pauseBtn,
           statusEl,

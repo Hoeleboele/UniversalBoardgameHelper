@@ -38,6 +38,7 @@ export function createTimerSettingsScreen() {
   let teamAColorId = "red";
   let teamBColorId = "blue";
   let neutralEnabled = false;
+  let resetBehavior = "all";
 
   return {
     mount(container) {
@@ -45,6 +46,7 @@ export function createTimerSettingsScreen() {
       teamAColorId = saved.teamAColorId;
       teamBColorId = saved.teamBColorId;
       neutralEnabled = saved.neutralEnabled;
+      resetBehavior = saved.resetBehavior || "all";
 
       const teamANameInput = el("input", {
         class: "timer-input",
@@ -94,6 +96,26 @@ export function createTimerSettingsScreen() {
           },
         },
       });
+
+      const resetBehaviorInput = el("select", {
+        class: "timer-input",
+        on: {
+          change: (e) => {
+            resetBehavior = e.target.value === "neutral-only" ? "neutral-only" : "all";
+          },
+        },
+      }, [
+        el("option", {
+          value: "neutral-only",
+          text: "Reset only neutral",
+          selected: resetBehavior === "neutral-only" ? "selected" : undefined,
+        }),
+        el("option", {
+          value: "all",
+          text: "Reset all",
+          selected: resetBehavior === "all" ? "selected" : undefined,
+        }),
+      ]);
 
       const teamASwatchList = el("div", { class: "timer-swatch-list" });
       const teamBSwatchList = el("div", { class: "timer-swatch-list" });
@@ -157,6 +179,7 @@ export function createTimerSettingsScreen() {
           teamBColorId,
           neutralEnabled,
           neutralSeconds,
+          resetBehavior,
         });
 
         Router.go("timer-play");
@@ -213,6 +236,10 @@ export function createTimerSettingsScreen() {
               el("span", { text: "Enabled" }),
             ]),
             neutralTimeInput,
+          ]),
+          el("label", { class: "timer-field" }, [
+            el("span", { class: "timer-label", text: "Reset Button Behavior" }),
+            resetBehaviorInput,
           ]),
           el("button", {
             class: "btn",

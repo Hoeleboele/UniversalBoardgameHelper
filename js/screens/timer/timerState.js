@@ -12,6 +12,7 @@ const DEFAULT_SETTINGS = {
   teamBColorId: "blue",
   neutralEnabled: false,
   neutralSeconds: 3 * 60,
+  resetBehavior: "all",
 };
 
 const VALID_COLOR_IDS = new Set(COLORS.map((c) => c.id));
@@ -37,6 +38,10 @@ function sanitizeEnabled(value, fallback) {
   return fallback;
 }
 
+function sanitizeResetBehavior(value, fallback) {
+  return value === "neutral-only" || value === "all" ? value : fallback;
+}
+
 function sanitizeSettings(raw) {
   const source = raw && typeof raw === "object" ? raw : {};
   return {
@@ -48,6 +53,7 @@ function sanitizeSettings(raw) {
     teamBColorId: sanitizeColorId(source.teamBColorId, DEFAULT_SETTINGS.teamBColorId),
     neutralEnabled: sanitizeEnabled(source.neutralEnabled, DEFAULT_SETTINGS.neutralEnabled),
     neutralSeconds: sanitizeSeconds(source.neutralSeconds, DEFAULT_SETTINGS.neutralSeconds),
+    resetBehavior: sanitizeResetBehavior(source.resetBehavior, DEFAULT_SETTINGS.resetBehavior),
   };
 }
 
@@ -180,6 +186,21 @@ export function resetTimerSession() {
   ended = false;
   endedAt = 0;
   neutralEndedAt = 0;
+  emit();
+}
+
+export function resetNeutralTimerSession() {
+  if (!settings.neutralEnabled) return;
+
+  neutralRemaining = settings.neutralSeconds;
+  neutralActive = false;
+  neutralEndedAt = 0;
+
+  if (paused) {
+    activeTeam = null;
+    clearTicker();
+  }
+
   emit();
 }
 

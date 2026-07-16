@@ -1,6 +1,6 @@
 import { el, clear } from "../../utils/dom.js";
 import { Router } from "../../router.js";
-import { LifeState } from "./lifeState.js";
+import { LifeState, RESET_LIFE_MIN, RESET_LIFE_MAX } from "./lifeState.js";
 import { createPlayerCard } from "./playerCard.js";
 
 const LIFE_LANDSCAPE_CLASS = "life-force-landscape";
@@ -81,6 +81,8 @@ export function createLifeScreen() {
   let unsubscribe = null;
   let screenNode = null;
   let menuBackdrop = null;
+  let resetSlider = null;
+  let resetValueEl = null;
 
   const list = el("ul", { class: "life-list" });
 
@@ -108,6 +110,9 @@ export function createLifeScreen() {
     });
     addBtn.disabled = !state.canAdd;
     addBtn.style.opacity = state.canAdd ? "1" : "0.4";
+
+    if (resetSlider) resetSlider.value = String(state.resetLife);
+    if (resetValueEl) resetValueEl.textContent = String(state.resetLife);
   }
 
   return {
@@ -145,6 +150,27 @@ export function createLifeScreen() {
                 },
               },
             }),
+            el("div", { class: "life-reset-setting" }, [
+              el("div", { class: "life-reset-head" }, [
+                el("span", { text: "Reset value" }),
+                (resetValueEl = el("strong", {
+                  class: "life-reset-value",
+                  text: String(state.resetLife),
+                })),
+              ]),
+              (resetSlider = el("input", {
+                class: "life-reset-slider",
+                type: "range",
+                min: String(RESET_LIFE_MIN),
+                max: String(RESET_LIFE_MAX),
+                step: "1",
+                value: String(state.resetLife),
+                "aria-label": "Set life reset value",
+                on: {
+                  input: (e) => state.setResetLife(Number(e.target.value)),
+                },
+              })),
+            ]),
           ]),
         ])),
       ]);
