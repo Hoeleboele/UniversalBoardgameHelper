@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Boardgame Helper">
+  <rect width="512" height="512" rx="112" fill="#111418"/>
+  <rect x="96" y="96" width="320" height="320" rx="56" fill="#1c2129" stroke="#4f9dff" stroke-width="20"/>
+  <path d="M160 196h192M160 256h192M160 316h128" stroke="#f2f4f8" stroke-width="28" stroke-linecap="round"/>
+  <circle cx="352" cy="316" r="20" fill="#4f9dff"/>
+  <circle cx="320" cy="196" r="18" fill="#ff5c5c"/>
+</svg>

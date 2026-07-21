@@ -6,15 +6,23 @@ import { createPlayerCard } from "./playerCard.js";
 const LIFE_LANDSCAPE_CLASS = "life-force-landscape";
 let removeFullscreenRetryListeners = null;
 
+function isStandaloneMode() {
+  return Boolean(
+    window.matchMedia?.("(display-mode: standalone)")?.matches ||
+      window.navigator.standalone
+  );
+}
+
 async function enterLifeFullscreen() {
-  if (!document.fullscreenEnabled || document.fullscreenElement) return true;
+  if (document.fullscreenElement || isStandaloneMode()) return true;
   const root = document.documentElement;
-  if (!root || typeof root.requestFullscreen !== "function") return false;
+  const requestFullscreen = root?.requestFullscreen || root?.webkitRequestFullscreen;
+  if (!root || typeof requestFullscreen !== "function") return false;
   try {
-    await root.requestFullscreen();
+    await requestFullscreen.call(root);
     return true;
   } catch {
-    return false;
+    return isStandaloneMode();
   }
 }
 
@@ -43,9 +51,11 @@ function cleanupFullscreenRetry() {
 
 async function exitLifeFullscreen() {
   cleanupFullscreenRetry();
-  if (!document.fullscreenElement || typeof document.exitFullscreen !== "function") return;
+  const exitFullscreen = document.exitFullscreen || document.webkitExitFullscreen;
+  if (!document.fullscreenElement && !document.webkitFullscreenElement) return;
+  if (typeof exitFullscreen !== "function") return;
   try {
-    await document.exitFullscreen();
+    await exitFullscreen.call(document);
   } catch {
     // Ignore cases where the browser blocks programmatic fullscreen exit.
   }
