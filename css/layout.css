@@ -38,7 +38,10 @@ html.life-force-landscape body {
     width: 100dvh;
     height: 100dvw;
     transform-origin: top left;
-    transform: rotate(90deg) translateY(-100dvh);
+    /* translateY must be a % of the box's own height (100dvw), not 100dvh,
+       or the two units can drift apart (e.g. after screen lock/unlock) and
+       push the rotated box off-screen. */
+    transform: rotate(90deg) translateY(-100%);
   }
 }
 
