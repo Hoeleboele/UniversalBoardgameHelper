@@ -62,7 +62,10 @@ async function exitLifeFullscreen() {
 }
 
 async function lockLifeLandscape() {
+  document.documentElement.classList.add(LIFE_LANDSCAPE_CLASS);
   document.body.classList.add(LIFE_LANDSCAPE_CLASS);
+  // A refresh can leave a stale scroll offset that pushes the rotated layout off-screen.
+  window.scrollTo(0, 0);
   const orientation = screen.orientation;
   if (!orientation || typeof orientation.lock !== "function") return;
   try {
@@ -73,6 +76,7 @@ async function lockLifeLandscape() {
 }
 
 function unlockLifeLandscape() {
+  document.documentElement.classList.remove(LIFE_LANDSCAPE_CLASS);
   document.body.classList.remove(LIFE_LANDSCAPE_CLASS);
   const orientation = screen.orientation;
   if (!orientation || typeof orientation.unlock !== "function") return;

@@ -245,6 +245,11 @@
   flex: 1;
   min-height: 0;
   display: flex;
+  transition: transform 0.2s ease;
+}
+
+.player-card[data-rotated="true"] .life-core {
+  transform: rotate(180deg);
 }
 
 .player-total-hit:active {

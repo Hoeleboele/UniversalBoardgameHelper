@@ -54,6 +54,7 @@ export class LifeState {
         colorId: p.colorId || DEFAULT_COLORS[i] || DEFAULT_COLOR_ID,
         deltaTotal: Number(p.deltaTotal) || 0,
         deltaAt: Number(p.deltaAt) || 0,
+        rotated: Boolean(p.rotated),
       }));
     }
     return this._makePlayers(MIN_PLAYERS);
@@ -66,6 +67,7 @@ export class LifeState {
       colorId: DEFAULT_COLORS[i] || DEFAULT_COLOR_ID,
       deltaTotal: 0,
       deltaAt: 0,
+      rotated: false,
     }));
   }
 
@@ -87,6 +89,13 @@ export class LifeState {
     const p = this.players.find((x) => x.id === id);
     if (!p) return;
     p.colorId = colorId;
+    this._emit();
+  }
+
+  toggleRotation(id) {
+    const p = this.players.find((x) => x.id === id);
+    if (!p) return;
+    p.rotated = !p.rotated;
     this._emit();
   }
 
@@ -143,6 +152,7 @@ export class LifeState {
       colorId,
       deltaTotal: 0,
       deltaAt: 0,
+      rotated: false,
     });
     this._emit();
   }

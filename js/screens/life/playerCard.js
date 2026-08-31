@@ -181,13 +181,19 @@ export function createPlayerCard(player, state, { canRemove }) {
     "li",
     {
       class: "player-card",
-      dataset: { light: String(color.light) },
+      dataset: { light: String(color.light), rotated: String(Boolean(player.rotated)) },
       style: `background:${color.value};--player-delta-plus:${plusColor};--player-delta-minus:${minusColor}`,
     },
     [
       el("div", { class: "player-card-top" }, [
         el("span", { class: "player-name", text: `P${player.id}` }),
         el("span", { class: "spacer" }),
+        el("button", {
+          class: "icon-btn",
+          "aria-label": "Flip number",
+          text: "🔄",
+          on: { click: () => state.toggleRotation(player.id) },
+        }),
         el("button", {
           class: "icon-btn",
           "aria-label": "Change color",

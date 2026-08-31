@@ -18,6 +18,18 @@ body.life-force-landscape {
   overflow: hidden;
 }
 
+/* iOS Safari can still rubber-band scroll the document even with body overflow
+   hidden, which shifts the rotated .app out of view after a refresh. Pin both
+   the root and body in place while the landscape hack is active. */
+html.life-force-landscape,
+html.life-force-landscape body {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 @media (orientation: portrait) {
   body.life-force-landscape .app {
     position: fixed;
