@@ -230,6 +230,85 @@
   overflow-wrap: anywhere;
 }
 
+.setup-result-values {
+  margin: 0;
+  margin-top: 6px;
+  padding-left: 20px;
+  list-style: none;
+}
+
+.setup-result-values li {
+  font-size: 1.2rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  gap: 4px;
+}
+
+.setup-stepper-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 12px;
+}
+
+.setup-stepper-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border-radius: 12px;
+}
+
+.setup-stepper-title {
+  flex: 1;
+  min-width: 0;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.setup-stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.setup-stepper-btn {
+  flex: 0 0 36px;
+  width: 36px;
+  min-height: 36px;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  background: var(--surface-2);
+}
+
+.setup-stepper-btn:active {
+  background: var(--surface-3);
+}
+
+.setup-stepper-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.setup-stepper span[data-action="count"] {
+  display: inline-block;
+  min-width: 30px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.setup-count-input {
+  max-width: 72px;
+}
+
 /* ---------- Life screen ---------- */
 .life-list {
   flex: 1;

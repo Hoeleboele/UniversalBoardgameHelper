@@ -22,10 +22,13 @@ function sanitizeList(raw, index) {
   const values = Array.isArray(source.values)
     ? source.values.map(sanitizeText).filter(Boolean)
     : [];
+  const count = typeof source.count === "number" ? source.count : 1;
+  const clampedCount = Math.max(1, Math.floor(count));
 
   return {
     title: sanitizeText(source.title) || `List ${index + 1}`,
     values,
+    count: clampedCount,
   };
 }
 
@@ -64,7 +67,7 @@ function copyGame(game) {
   if (!game) return null;
   return {
     ...game,
-    lists: game.lists.map((list) => ({ ...list, values: [...list.values] })),
+    lists: game.lists.map((list) => ({ ...list, values: [...list.values], count: list.count })),
   };
 }
 
@@ -72,7 +75,7 @@ export function createEmptyGame() {
   return {
     id: createId(),
     name: "",
-    lists: [{ title: "", values: [""] }],
+    lists: [{ title: "", values: [""], count: 1 }],
   };
 }
 

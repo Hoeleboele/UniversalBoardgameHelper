@@ -11,7 +11,7 @@ import {
 function copyDraft(game) {
   return {
     ...game,
-    lists: game.lists.map((list) => ({ ...list, values: [...list.values] })),
+    lists: game.lists.map((list) => ({ ...list, values: [...list.values], count: list.count })),
   };
 }
 
@@ -74,6 +74,17 @@ export function createSetupEditScreen() {
           listsContainer.append(el("section", { class: "setup-list-editor" }, [
             el("div", { class: "setup-list-editor-head" }, [
               titleInput,
+              el("input", {
+                class: "setup-input setup-count-input",
+                type: "number",
+                min: "1",
+                value: list.count || 1,
+                "aria-label": "Amount to randomize",
+                on: { input: (event) => {
+                  const val = parseInt(event.target.value, 10);
+                  list.count = Math.max(1, isNaN(val) ? 1 : val);
+                } },
+              }),
               el("button", {
                 class: "btn btn-ghost setup-remove-btn",
                 type: "button",
