@@ -34,6 +34,14 @@ export function createMenuScreen() {
             },
             [el("span", { class: "emoji", text: "⏱️" }), el("span", { text: "Team Timer" })]
           ),
+          el(
+            "button",
+            {
+              class: "menu-btn",
+              on: { click: () => Router.go("teams-settings") },
+            },
+            [el("span", { class: "emoji", text: "👥" }), el("span", { text: "Random Teams" })]
+          ),
         ]),
       ]);
       container.append(screen);

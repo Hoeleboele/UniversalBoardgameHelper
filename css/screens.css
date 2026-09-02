@@ -352,6 +352,59 @@
   z-index: 10;
 }
 
+.finger.assigned {
+  box-shadow: 0 0 30px 6px currentColor;
+}
+
+/* ---------- Random teams settings ---------- */
+.teams-settings-body {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 24px 14px;
+}
+
+.teams-field {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+}
+
+.teams-stepper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.teams-stepper-btn {
+  width: 56px;
+  height: 56px;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.teams-stepper-btn:disabled {
+  opacity: 0.4;
+}
+
+.teams-count {
+  min-width: 56px;
+  text-align: center;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.teams-start-btn {
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  background: var(--accent);
+  color: #fff;
+  min-height: 52px;
+}
+
 /* ---------- Team timer settings ---------- */
 .timer-settings {
   gap: 10px;

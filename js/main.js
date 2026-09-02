@@ -4,6 +4,8 @@ import { createLifeScreen } from "./screens/life/lifeScreen.js";
 import { createRandomScreen } from "./screens/random/randomScreen.js";
 import { createTimerSettingsScreen } from "./screens/timer/timerSettingsScreen.js";
 import { createTimerPlayScreen } from "./screens/timer/timerPlayScreen.js";
+import { createTeamsSettingsScreen } from "./screens/teams/teamsSettingsScreen.js";
+import { createTeamsScreen } from "./screens/teams/teamsPlayScreen.js";
 import { enableWakeLock } from "./services/wakeLock.js";
 
 const outlet = document.getElementById("app");
@@ -16,6 +18,8 @@ const router = new Router(
     random: createRandomScreen,
     "timer-settings": createTimerSettingsScreen,
     "timer-play": createTimerPlayScreen,
+    "teams-settings": createTeamsSettingsScreen,
+    "teams-play": createTeamsScreen,
   },
   "menu"
 );
