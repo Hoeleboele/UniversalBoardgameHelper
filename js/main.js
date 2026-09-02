@@ -6,6 +6,9 @@ import { createTimerSettingsScreen } from "./screens/timer/timerSettingsScreen.j
 import { createTimerPlayScreen } from "./screens/timer/timerPlayScreen.js";
 import { createTeamsSettingsScreen } from "./screens/teams/teamsSettingsScreen.js";
 import { createTeamsScreen } from "./screens/teams/teamsPlayScreen.js";
+import { createSetupListScreen } from "./screens/setup/setupListScreen.js";
+import { createSetupEditScreen } from "./screens/setup/setupEditScreen.js";
+import { createSetupPlayScreen } from "./screens/setup/setupPlayScreen.js";
 import { enableWakeLock } from "./services/wakeLock.js";
 
 const outlet = document.getElementById("app");
@@ -20,6 +23,9 @@ const router = new Router(
     "timer-play": createTimerPlayScreen,
     "teams-settings": createTeamsSettingsScreen,
     "teams-play": createTeamsScreen,
+    setup: createSetupListScreen,
+    "setup-edit": createSetupEditScreen,
+    "setup-play": createSetupPlayScreen,
   },
   "menu"
 );

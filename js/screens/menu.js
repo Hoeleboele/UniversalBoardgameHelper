@@ -42,6 +42,14 @@ export function createMenuScreen() {
             },
             [el("span", { class: "emoji", text: "👥" }), el("span", { text: "Random Teams" })]
           ),
+          el(
+            "button",
+            {
+              class: "menu-btn",
+              on: { click: () => Router.go("setup") },
+            },
+            [el("span", { class: "emoji", text: "🎲" }), el("span", { text: "Setup Randomizer" })]
+          ),
         ]),
       ]);
       container.append(screen);
