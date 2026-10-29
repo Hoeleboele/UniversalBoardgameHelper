@@ -9,6 +9,8 @@ import { createTeamsScreen } from "./screens/teams/teamsPlayScreen.js";
 import { createSetupListScreen } from "./screens/setup/setupListScreen.js";
 import { createSetupEditScreen } from "./screens/setup/setupEditScreen.js";
 import { createSetupPlayScreen } from "./screens/setup/setupPlayScreen.js";
+import { createRandomWordLangScreen } from "./screens/random-word/randomWordLangScreen.js";
+import { createRandomWordPlayScreen } from "./screens/random-word/randomWordPlayScreen.js";
 import { enableWakeLock } from "./services/wakeLock.js";
 
 const outlet = document.getElementById("app");
@@ -26,6 +28,8 @@ const router = new Router(
     setup: createSetupListScreen,
     "setup-edit": createSetupEditScreen,
     "setup-play": createSetupPlayScreen,
+    "random-word": createRandomWordLangScreen,
+    "random-word-play": createRandomWordPlayScreen,
   },
   "menu"
 );
