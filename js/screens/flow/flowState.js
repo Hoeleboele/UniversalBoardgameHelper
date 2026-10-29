@@ -1,5 +1,7 @@
 import { load, save } from "../../services/storage.js";
+import { COLORS } from "../../constants/colors.js";
 
+const VALID_COLOR_IDS = new Set(COLORS.map((c) => c.id));
 const STORAGE_KEY = "flow-games";
 export const OPTIONS_PER_CHOICE = 2;
 
@@ -37,6 +39,8 @@ function sanitizeStep(raw) {
     id: sanitizeText(source.id) || createId(),
     title: sanitizeText(source.title),
     description: sanitizeText(source.description),
+    // Empty color means the default card color.
+    colorId: VALID_COLOR_IDS.has(source.colorId) ? source.colorId : "",
     choice: rawOptions
       ? {
           options: Array.from({ length: OPTIONS_PER_CHOICE }, (_, i) => (
@@ -105,7 +109,7 @@ export function copyFlowGame(game) {
 }
 
 export function createEmptyStep() {
-  return { id: createId(), title: "", description: "", choice: null };
+  return { id: createId(), title: "", description: "", colorId: "", choice: null };
 }
 
 export function createEmptyChoice() {

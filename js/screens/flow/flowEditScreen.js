@@ -1,5 +1,6 @@
 import { clear, el } from "../../utils/dom.js";
 import { Router } from "../../router.js";
+import { COLORS } from "../../constants/colors.js";
 import {
   copyFlowGame,
   createEmptyChoice,
@@ -95,6 +96,34 @@ export function createFlowEditScreen() {
         }));
       }
 
+      function renderColorPicker(step) {
+        const swatches = el("div", { class: "flow-swatch-list", role: "group", "aria-label": "Step color" });
+
+        function renderSwatches() {
+          clear(swatches);
+          [{ id: "", value: "" }, ...COLORS].forEach((color) => {
+            const isSelected = (step.colorId || "") === color.id;
+            swatches.append(el("button", {
+              type: "button",
+              class: `flow-swatch${isSelected ? " selected" : ""}${color.id ? "" : " flow-swatch-none"}`,
+              style: color.value ? `background:${color.value}` : null,
+              title: color.id || "No color",
+              "aria-label": color.id || "No color",
+              "aria-pressed": String(isSelected),
+              on: {
+                click: () => {
+                  step.colorId = color.id;
+                  renderSwatches();
+                },
+              },
+            }));
+          });
+        }
+
+        renderSwatches();
+        return swatches;
+      }
+
       function renderSteps() {
         clear(stepsContainer);
         targetSelects = [];
@@ -132,6 +161,7 @@ export function createFlowEditScreen() {
               placeholder: "Description (optional)",
               on: { input: (event) => { step.description = event.target.value; } },
             }, [step.description]),
+            renderColorPicker(step),
             renderChoice(step),
             el("div", { class: "flow-step-actions" }, [
               el("button", {

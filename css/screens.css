@@ -448,6 +448,57 @@
   align-self: center;
 }
 
+.flow-swatch-list {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 36px));
+  gap: 6px;
+}
+
+.flow-swatch {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-height: 0;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  transition: transform 0.14s ease, border-color 0.14s ease;
+}
+
+.flow-swatch.selected {
+  border-color: #ffffff;
+  transform: scale(1.1);
+}
+
+.flow-swatch-none {
+  background:
+    linear-gradient(45deg, transparent 45%, var(--danger) 45%, var(--danger) 55%, transparent 55%),
+    var(--surface-2);
+}
+
+.flow-step-card {
+  transition: background-color 0.2s ease;
+}
+
+.flow-step-card.colored .flow-step-description {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.flow-step-card.light {
+  color: #16191d;
+}
+
+.flow-step-card.light .flow-step-description {
+  color: rgba(22, 25, 29, 0.75);
+}
+
+.flow-step-card.colored .flow-option-btn {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.flow-step-card.light .flow-option-btn {
+  background: rgba(0, 0, 0, 0.75);
+}
+
 /* ---------- Life screen ---------- */
 .life-list {
   flex: 1;

@@ -1,5 +1,6 @@
 import { clear, el } from "../../utils/dom.js";
 import { Router } from "../../router.js";
+import { getColor } from "../../constants/colors.js";
 import {
   getCurrentFlowGameId,
   getFlowGame,
@@ -33,6 +34,7 @@ export function createFlowPlayScreen() {
       const title = el("h2", { class: "flow-step-title" });
       const description = el("p", { class: "flow-step-description" });
       const options = el("div", { class: "flow-options" });
+      const card = el("article", { class: "flow-step-card" }, [title, description, options]);
       const hint = el("p", { class: "flow-tap-hint" });
       const prevButton = el("button", {
         class: "btn btn-ghost flow-prev-btn",
@@ -61,6 +63,10 @@ export function createFlowPlayScreen() {
 
       function render() {
         const step = game.steps[index];
+        const color = step.colorId ? getColor(step.colorId) : null;
+        card.style.background = color ? color.value : "";
+        card.classList.toggle("colored", Boolean(color));
+        card.classList.toggle("light", Boolean(color && color.light));
         roundLabel.textContent = `Round ${round}`;
         stepCounter.textContent = `Step ${index + 1} / ${game.steps.length}`;
         title.textContent = step.title;
@@ -107,7 +113,7 @@ export function createFlowPlayScreen() {
         ]),
         el("div", { class: "flow-play-body" }, [
           el("div", { class: "flow-progress" }, [roundLabel, stepCounter]),
-          el("article", { class: "flow-step-card" }, [title, description, options]),
+          card,
           hint,
           prevButton,
         ]),
