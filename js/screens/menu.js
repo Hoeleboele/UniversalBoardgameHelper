@@ -58,6 +58,14 @@ export function createMenuScreen() {
             },
             [el("span", { class: "emoji", text: "🔤" }), el("span", { text: "Random Word" })]
           ),
+          el(
+            "button",
+            {
+              class: "menu-btn",
+              on: { click: () => Router.go("flow") },
+            },
+            [el("span", { class: "emoji", text: "🔀" }), el("span", { text: "Game Flow" })]
+          ),
         ]),
       ]);
       container.append(screen);
